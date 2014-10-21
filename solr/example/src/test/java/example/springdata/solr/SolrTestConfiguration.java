@@ -53,14 +53,13 @@ public class SolrTestConfiguration {
 	 */
 	@PostConstruct
 	public void initWithTestData() {
+		doInitTestData(repo);
+	}
+
+	protected void doInitTestData(CrudRepository<Product, String> repository) {
 
 		for (int i = 0; i < 100; i++) {
-
-			Product p = new Product();
-			p.setId("p-" + i);
-			p.setName("foobar");
-
-			repo.save(p);
+			repository.save(Product.builder().id("p-" + i).name("foobar").build());
 		}
 	}
 }

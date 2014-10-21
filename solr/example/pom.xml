@@ -11,6 +11,10 @@
 	<artifactId>spring-data-solr-example</artifactId>
 	<name>Spring Data Solr - Example</name>
 
+	<properties>
+		<spring-data-releasetrain.version>Fowler-BUILD-SNAPSHOT</spring-data-releasetrain.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

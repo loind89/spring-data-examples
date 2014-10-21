@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package example.springdata.solr;
 
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
 
 import org.springframework.data.annotation.Id;
@@ -25,12 +26,14 @@ import org.springframework.data.solr.core.mapping.Indexed;
 import org.springframework.data.solr.core.mapping.SolrDocument;
 
 /**
- * Document representing a Product and its attributes matching the fieldes defined in the <a
+ * Document representing a Product and its attributes matching the fields defined in the <a
  * href="http://localhost:8983/solr/collection1/schema">example solr schema</a>.
  * 
  * @author Christoph Strobl
+ * @author Oliver Gierke
  */
 @Data
+@Builder
 @SolrDocument(solrCoreName = "collection1")
 public class Product {
 
@@ -38,11 +41,8 @@ public class Product {
 	private @Indexed String name;
 	private @Indexed(name = "cat") List<String> category;
 	private @Indexed(name = "store") Point location;
+	private @Indexed String description;
 	private @Indexed boolean inStock;
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", location=" + location + ", inStock="
-				+ inStock + "]";
-	}
+	private @Indexed Integer popularity;
+	private @Indexed(readonly = true) Float score;
 }

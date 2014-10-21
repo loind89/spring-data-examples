@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,10 @@
  */
 package example.springdata.solr;
 
-import java.util.Iterator;
-
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.solr.core.query.result.Cursor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,10 +26,11 @@ import example.springdata.solr.test.util.RequiresSolrServer;
 
 /**
  * @author Christoph Strobl
+ * @author Oliver Gierke
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { SolrTestConfiguration.class })
-public class SolrRepositoryTests {
+public class BasicSolrRepositoryTests {
 
 	public static @ClassRule RequiresSolrServer requiresRunningServer = RequiresSolrServer.onLocalhost();
 
@@ -43,9 +41,7 @@ public class SolrRepositoryTests {
 	 */
 	@Test
 	public void findAll() {
-
-		Iterator<Product> iterator = repo.findAll().iterator();
-		printResult(iterator);
+		repo.findAll().forEach(System.out::println);
 	}
 
 	/**
@@ -53,15 +49,6 @@ public class SolrRepositoryTests {
 	 */
 	@Test
 	public void findAllUsingDeepPagination() {
-
-		Cursor<Product> cursor = repo.findAllUsingCursor();
-		printResult(cursor);
-	}
-
-	private void printResult(Iterator<Product> it) {
-
-		while (it.hasNext()) {
-			System.out.println(it.next());
-		}
+		repo.findAllUsingCursor().forEachRemaining(System.out::println);
 	}
 }
