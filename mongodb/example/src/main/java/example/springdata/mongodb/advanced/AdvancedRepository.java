@@ -27,7 +27,7 @@ import example.springdata.mongodb.customer.CustomerRepository;
  * 
  * @author Christoph Strobl
  */
-public interface AdvancedRepository extends CustomerRepository {
+public interface AdvancedRepository extends CustomerRepository, AdvancedRepositoryCustom {
 
 	String META_COMMENT = "s2gx-2014-rocks!";
 
